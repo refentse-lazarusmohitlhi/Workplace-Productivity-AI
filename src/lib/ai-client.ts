@@ -1,15 +1,15 @@
 export type Msg = { role: "user" | "assistant"; content: string };
 
 export async function streamAI(
-  body: { mode: "planner" | "research" | "chat"; messages: Msg[]; url?: string },
+  body: { mode: "planner" | "research" | "chat"; messages: Msg[]; url?: string | undefined },
   onDelta: (text: string) => void,
-  signal?: AbortSignal,
+  signal?: AbortSignal | undefined,
 ) {
   const res = await fetch("/api/ai", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok || !res.body) {
     const j = await res.json().catch(() => ({}));
