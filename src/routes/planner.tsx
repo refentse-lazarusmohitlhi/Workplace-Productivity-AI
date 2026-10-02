@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Sparkles, Loader2 } from "lucide-react";
-import { PageHeader, Disclaimer, Markdown, ErrorBox } from "@/components/AppShell";
+import { PageHeader, Disclaimer, Markdown, ErrorBox } from "@/components/Shared";
 import { streamAI } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/planner")({

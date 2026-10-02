@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { SendHorizontal, Loader2, Square, Briefcase } from "lucide-react";
-import { Markdown, ErrorBox } from "@/components/AppShell";
+import { Markdown, ErrorBox } from "@/components/Shared";
 import { streamAI, type Msg } from "@/lib/ai-client";
 import { loadThreads, saveThreads } from "@/lib/threads";
 

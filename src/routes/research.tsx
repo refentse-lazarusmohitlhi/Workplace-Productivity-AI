@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Sparkles, Loader2 } from "lucide-react";
-import { PageHeader, Disclaimer, Markdown, ErrorBox } from "@/components/AppShell";
+import { PageHeader, Disclaimer, Markdown, ErrorBox } from "@/components/Shared";
 import { streamAI } from "@/lib/ai-client";
 
 export const Route = createFileRoute("/research")({
@@ -27,7 +27,8 @@ function Research() {
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const valid = mode === "url" ? /^https?:\/\/\S+\.\S+/.test(text.trim()) : text.trim().length > 2;
+  const normUrl = (t: string) => (/^https?:\/\//i.test(t.trim()) ? t.trim() : "https://" + t.trim());
+  const valid = mode === "url" ? /^https?:\/\/\S+\.\S+/.test(normUrl(text)) : text.trim().length > 2;
 
   const run = async () => {
     setBusy(true); setErr(""); setOut("");
@@ -37,7 +38,7 @@ function Research() {
       mode === "article" ? `Analyse this article:\n\n${text}${goal}` :
       `Analyse the web page at ${text.trim()} (its content follows).${goal}`;
     try {
-      await streamAI({ mode: "research", messages: [{ role: "user", content }], url: mode === "url" ? text.trim() : undefined }, (d) => setOut((o) => o + d));
+      await streamAI({ mode: "research", messages: [{ role: "user", content }], url: mode === "url" ? normUrl(text) : undefined }, (d) => setOut((o) => o + d));
     } catch (e) { setErr((e as Error).message); }
     setBusy(false);
   };
