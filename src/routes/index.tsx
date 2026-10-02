@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarClock, BookOpenText, MessagesSquare, ArrowRight } from "lucide-react";
-import { PageHeader, Disclaimer } from "@/components/AppShell";
+import { PageHeader, Disclaimer } from "@/components/Shared";
 
 export const Route = createFileRoute("/")({
   head: () => ({
